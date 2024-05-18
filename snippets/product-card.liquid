@@ -1,0 +1,29 @@
+{%- comment -%}
+  Renders the product card
+
+  Accepts:
+    - product: Liquid object of product
+{%- endcomment -%}
+
+{% assign pre = "x-product-card" %}
+
+{% assign variant = product.selected_or_first_available_variant %}
+
+<a href="{{product.url}}" class="{{pre}}__card">
+  <div class="{{pre}}__product">
+    <div class="{{pre}}__image-wrapper">
+      {{product.featured_image | image_url: width: 533 | image_tag}}
+    </div>
+    <div class="{{pre}}__content-wrapper">
+      <h4 class="{{pre}}__title">{{product.title}}</h4>
+      <div class="{{pre}}__price-wrapper">
+        {% if product.compare_at_price %}
+          <span class="{{pre}}__price {{pre}}__price--compare">{{product.compare_at_price | money}}</span>
+          <span class="{{pre}}__price {{pre}}__price--sale">{{product.price | money}}</span>
+        {% else %}
+          <span class="{{pre}}__price">{{product.price | money}}</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</a>

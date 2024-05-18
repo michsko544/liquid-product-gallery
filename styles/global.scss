@@ -1,6 +1,22 @@
 :root{
   --color-black: #000;
   --color-white: #fff;
+  --color-primary: #28a100;
+
+  --color-netural-100: #F1F1F0;
+  --color-netural-200: #F0F0EE;
+  --color-netural-300: #EDECEB;
+  --color-netural-400: #E7E6E6;
+  --color-netural-500: #DAD9D9;
+  --color-netural-600: #b9bbb4ff;
+  --color-netural-700: #b4b3acff;
+  --color-netural-800: #a5a29dff;
+  --color-netural-900: #85827fff;
 
   --color-font: var(--color-black);
+  --color-card: var(--color-netural-100);
+  --color-price: var(--color-black);
+  --color-price-sale: var(--color-primary);
 }
+
+

@@ -1,0 +1,83 @@
+<script src="{{ 'x-swiper.js' | asset_url }}" type="module"></script>
+{{ 'x-swiper.css' | asset_url | stylesheet_tag }}
+
+{% assign filter_tag = 'Bestseller' %}
+{% assign product_limit = section.settings.slider_limit %}
+{% assign filtered_product_ids = "" %}
+
+{% for collection in product.collections %}
+  {% for product in collection.products %}
+    {% for tag in product.tags %}
+      {% if filter_tag contains tag %}
+        {% if filtered_product_ids == blank %}
+          {% assign filtered_product_ids = filtered_product_ids | append: product.id %}
+        {% else %}
+          {% assign filtered_product_ids = filtered_product_ids | append: "," | append: product.id %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endfor %}
+
+{% assign filtered_product_ids = filtered_product_ids | split: "," | uniq %}
+
+<div class="page-width">
+  <h2>{{section.settings.slider_title}}</h2>
+  {% if filtered_product_ids.size > 0 %}
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        {% for id in filtered_product_ids limit: product_limit %}
+          {% for collection in product.collections %}
+            {% for product in collection.products %}
+              {% if id contains product.id %}
+                {% assign found_product = product %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+          {% if found_product %}
+            <div class="swiper-slide">
+              {% render 'product-card', product: found_product %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    <div class="swiper-pagination"></div>
+
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+  {% endif %}
+
+</div>
+
+
+{% schema %}
+{
+  "name": "Top Products Slider",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "slider_title",
+      "label": "Slider Title",
+      "default": "Bestseller Products"
+    },
+    {
+      "type": "range",
+      "id": "slider_limit",
+      "label": "Slider Limit",
+      "default": 10,
+      "min": 1,
+      "max": 30,
+      "step": 1
+    }
+  ],
+  "presets": [{
+    "name": "Top Products Slider"
+  }]
+}
+{% endschema %}
