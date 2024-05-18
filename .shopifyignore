@@ -1,0 +1,7 @@
+package.json
+pnpm-lock.yaml
+.nvmrc
+.editorconfig
+tsconfig.json
+scripts/*
+styles/*
