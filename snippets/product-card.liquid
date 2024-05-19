@@ -8,18 +8,43 @@
 {% assign pre = "x-product-card" %}
 
 {% assign variant = product.selected_or_first_available_variant %}
+{% assign product_rating = 5 %}
+{% if product.metafields.custom.rating %}
+  {% assign product_rating = product.metafields.custom.rating %}
+{% endif %}
 
 <a href="{{product.url}}" class="{{pre}}__card">
   <div class="{{pre}}__product">
     <div class="{{pre}}__image-wrapper">
-      {{product.featured_image | image_url: width: 533 | image_tag}}
+      {{product.featured_image | image_url: width: 336 | image_tag: widths: '200, 336'}}
+      {% if product.compare_at_price_max > product.price %}
+        <div class="{{pre}}__chips">
+          <span class="{{pre}}__chip {{pre}}__chip--sale">{{product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}% zniżki</span>
+        </div>
+      {% endif %}
     </div>
     <div class="{{pre}}__content-wrapper">
-      <h4 class="{{pre}}__title">{{product.title}}</h4>
+      <div class="{{pre}}__product-details">
+        <div class="{{pre}}__product-rating">
+          {% for i in (1..5) %}
+            {% if i > product_rating %}
+              <span class="{{pre}}__star-icon">
+                {% render 'icon-star' %}
+              </span>
+            {% else %}
+              <span class="{{pre}}__star-icon {{pre}}__star-icon--active">
+                {% render 'icon-star' %}
+              </span>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <h3 class="{{pre}}__title">{{product.title}}</h3>
+        <p class="{{pre}}__description">{{product.description | strip_html}}</p>
+      </div>
       <div class="{{pre}}__price-wrapper">
         {% if product.compare_at_price %}
+          <span class="{{pre}}__price">{{product.price | money}}</span>
           <span class="{{pre}}__price {{pre}}__price--compare">{{product.compare_at_price | money}}</span>
-          <span class="{{pre}}__price {{pre}}__price--sale">{{product.price | money}}</span>
         {% else %}
           <span class="{{pre}}__price">{{product.price | money}}</span>
         {% endif %}

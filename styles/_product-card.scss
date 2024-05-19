@@ -1,0 +1,134 @@
+$pre: "x-product-card";
+
+.#{$pre}{
+  &__card{
+    height: 495px;
+    display: block;
+
+    &:-webkit-any-link {
+      text-decoration:none
+    };
+  }
+
+  &__product{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+  }
+
+  &__chips{
+    position: absolute;
+    inset: 12px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    pointer-events: none;
+  }
+
+  &__chip{
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--font-main);
+    color: var(--color-white);
+    background: var(--color-black);
+    padding: 4px 8px;
+    text-align: center;
+    border-radius: 4px;
+    height: fit-content;
+
+    &--sale{
+      background: var(--color-red);
+    }
+  }
+
+  &__image-wrapper{
+    width: 100%;
+    min-height: 336px;
+    position: relative;
+
+
+    > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  &__product-rating{
+    display: flex;
+    gap: 1px;
+
+  }
+
+  &__star-icon{
+    color :var(--color-netural-300);
+    width: 16px;
+    height: 16px;
+
+    &--active{
+      color: var(--color-star);
+    }
+  }
+
+  &__title{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-family: var(--font-main);
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--color-black);
+    font-weight: 600;
+    letter-spacing: 0;
+    margin: 0;
+    padding-top: 8px;
+  }
+
+  &__description{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-family: var(--font-main);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0;
+    color: var(--color-netural-600);
+    margin: 0;
+    padding-top: 12px;
+  }
+
+  &__price-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__price{
+    font-size: 15px;
+    font-weight: 700;
+    font-family: var(--font-main);
+    color: var(--color-black);
+
+    &--compare{
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: line-through;
+      color: var(--color-netural-600);
+    }
+  }
+}
+

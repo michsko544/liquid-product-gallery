@@ -6,19 +6,13 @@ export default defineConfig({
     emptyOutDir: false,
     rollupOptions: {
       input: {
-        swiper: 'scripts/swiper.ts',
+        'index': 'scripts/index.ts',
+        'products-slider-top': 'scripts/products-slider-top.ts',
       },
       output: {
         entryFileNames: 'x-[name].js',
         chunkFileNames: 'x-[name].js',
         assetFileNames: 'x-[name].[ext]',
-      },
-    },
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: "@use './global.scss' as *;",
       },
     },
   },

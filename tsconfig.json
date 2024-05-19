@@ -1,6 +1,7 @@
 {
   "include": ["env.d.ts", "**/*.ts"],
   "compilerOptions": {
+    "types": ["vite/client"],
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "strict": true,
     "skipLibCheck": true,
