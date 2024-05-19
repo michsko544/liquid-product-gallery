@@ -2,6 +2,10 @@
 {{ 'x-products-slider-top.css' | asset_url | stylesheet_tag }}
 
 {% assign filter_tag = 'Bestseller' %}
+{% if section.settings.tag != blank %}
+  {% assign filter_tag = section.settings.tag %}
+{% endif %}
+
 {% assign product_limit = section.settings.slider_limit %}
 {% assign filtered_product_ids = "" %}
 
@@ -18,8 +22,26 @@
     {% endfor %}
   {% endfor %}
 {% endfor %}
-
 {% assign filtered_product_ids = filtered_product_ids | split: "," | uniq %}
+
+{% assign display_source = section.settings.display_source %}
+
+{% capture swiper_navigation %}
+  <div class="swiper-button-prev">
+    <div class="swiper-navigation-button">
+      <div class="swiper-navigation-icon-wrapper">
+        {% render 'icon-chevron-left' %}
+      </div>
+    </div>
+  </div>
+  <div class="swiper-button-next">
+    <div class="swiper-navigation-button">
+      <div class="swiper-navigation-icon-wrapper">
+        {% render 'icon-chevron-right' %}
+      </div>
+    </div>
+  </div>
+{% endcapture %}
 
 {% assign pre = 'x-products-slider-top' %}
 
@@ -33,43 +55,48 @@
         </button>
       </a>
     </div>
-    {% if filtered_product_ids.size > 0 %}
-      <div class="swiper x-products-slider-top__swiper">
-        <div class="swiper-wrapper">
-          {% for id in filtered_product_ids limit: product_limit %}
-            {% for collection in product.collections %}
-              {% for product in collection.products %}
-                {% if id contains product.id %}
-                  {% assign found_product = product %}
-                {% endif %}
-              {% endfor %}
-            {% endfor %}
-            {% if found_product %}
-              <div class="swiper-slide">
-                {% render 'product-card', product: found_product %}
-              </div>
-            {% endif %}
-          {% endfor %}
-        </div>
 
-      <div class="swiper-button-prev">
-        <div class="swiper-navigation-button">
-          <div class="swiper-navigation-icon-wrapper">
-            {% render 'icon-chevron-left' %}
+    {% if display_source == 'collection' %}
+      {% if section.settings.collection and collections[section.settings.collection].products.size > 0 %}
+        <div class="swiper x-products-slider-top__swiper">
+          <div class="swiper-wrapper">
+            {% for product in collections[section.settings.collection].products limit: product_limit %}
+              <div class="swiper-slide">
+                {% render 'product-card', product: product %}
+              </div>
+            {% endfor %}
           </div>
+          {{ swiper_navigation }}
         </div>
-      </div>
-      <div class="swiper-button-next">
-        <div class="swiper-navigation-button">
-          <div class="swiper-navigation-icon-wrapper">
-            {% render 'icon-chevron-right' %}
-          </div>
-        </div>
-      </div>
-    </div>
+      {% else %}
+        <p class="{{pre}}__not-found">{{section.settings.not_found_message}}</p>
+      {% endif %}
     {% else %}
-      <p class="{{pre}}__not-found">{{section.settings.not_found_message}}</p>
+      {% if filtered_product_ids.size > 0 %}
+        <div class="swiper x-products-slider-top__swiper">
+          <div class="swiper-wrapper">
+            {% for id in filtered_product_ids limit: product_limit %}
+              {% for collection in product.collections %}
+                {% for product in collection.products %}
+                  {% if id contains product.id %}
+                    {% assign found_product = product %}
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+              {% if found_product %}
+                <div class="swiper-slide">
+                  {% render 'product-card', product: found_product %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          {{ swiper_navigation }}
+        </div>
+      {% else %}
+        <p class="{{pre}}__not-found">{{section.settings.not_found_message}}</p>
+      {% endif %}
     {% endif %}
+
     <a href="{{section.settings.button_link}}" class="{{pre}}__button-link {{pre}}__button-link--mobile">
       <button class="x-button">
         {{section.settings.button_text}}
@@ -91,17 +118,47 @@
     {
       "type": "text",
       "id": "slider_title",
-      "label": "Slider Title",
+      "label": "Slider title",
       "default": "Bestseller Products"
     },
     {
       "type": "range",
       "id": "slider_limit",
-      "label": "Slider Limit",
+      "label": "Slider limit",
       "default": 10,
       "min": 1,
       "max": 30,
       "step": 1
+    },
+    {
+      "type": "select",
+      "id": "display_source",
+      "label": "Display source",
+      "options": [
+        {
+          "value": "tag",
+          "label": "Product tag"
+        },
+        {
+          "value": "collection",
+          "label": "Custom collection"
+        }
+      ],
+      "default": "tag",
+      "info": "Choose how to display products in the slider"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Source product tag",
+      "info": "Applies if 'Product tag' is selected as the display source",
+      "default": "Bestseller"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Source collection",
+      "info": "Applies if 'Custom Collection' is selected as the display source"
     },
     {
       "type": "text",

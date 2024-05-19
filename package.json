@@ -13,7 +13,8 @@
     "build": "vite build",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
-    "theme:dev": "shopify theme dev --store weblovo-store"
+    "theme:dev": "shopify theme dev --store weblovo-store",
+    "theme:push": "shopify theme push --store weblovo-store"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",

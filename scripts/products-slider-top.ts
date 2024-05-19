@@ -18,7 +18,7 @@ new Swiper('.x-products-slider-top__swiper', {
   freeMode: true,
 
   breakpoints: {
-    600: {
+    500: {
       slidesPerView: 2.3,
       spaceBetween: 16,
     },
