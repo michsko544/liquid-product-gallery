@@ -31,16 +31,17 @@ Demo URL: https://weblovo-store.myshopify.com/products/the-collection-snowboard-
 
 ## Docs
 
+Section is called `Top Products Slider`.
+
 You can change the source of slider data in two ways:
 - use specific `Collection`
 - use `Product tag`.
   
-When you select the `Product tag` in customizer then slider will take all collections of current product and will search for all products with specified tag.
+When you select the `Product tag` in customizer then slider will take all collections of current product and will search for all products with specified tag. If some product is in multiple collections then it will be deduplicated.
 
 The rating of the product is editable in the metafields of the product (`custom.rating`).
 
-Available customizer settings
-
+Available customizer settings:
 ![Slider settings](https://i.ibb.co/LrX0Lmm/Zrzut-ekranu-2024-05-19-o-19-42-15.jpg)
 
 
