@@ -15,7 +15,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   plugins: ['@typescript-eslint', 'prettier', 'import', 'simple-import-sort'],
-  ignorePatterns: ['node_modules', 'assets/', '**/*.d.ts', '.eslintrc.cjs', 'vite.config.ts', 'postcss.config.js'],
+  ignorePatterns: ['node_modules', 'assets/', '**/*.d.ts', '.eslintrc.cjs', 'vite.config.ts', 'postcss.config.cjs'],
   parserOptions: {
     project: 'tsconfig.json',
   },

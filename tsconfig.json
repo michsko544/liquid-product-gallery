@@ -1,8 +1,8 @@
 {
   "include": ["env.d.ts", "**/*.ts"],
   "compilerOptions": {
-    "types": ["vite/client"],
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "types": ["vite/client", "node"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "strict": true,
     "skipLibCheck": true,
     "isolatedModules": true,
@@ -13,8 +13,8 @@
     "allowJs": true,
     "resolveJsonModule": true,
     "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "target": "ES2022",
+    "moduleResolution": "Node",
+    "target": "ESNext",
     "baseUrl": ".",
 
     "composite": false,
