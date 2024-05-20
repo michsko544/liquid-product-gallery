@@ -14,7 +14,8 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "theme:dev": "shopify theme dev --store weblovo-store",
-    "theme:push": "shopify theme push --store weblovo-store"
+    "theme:push": "shopify theme push --store weblovo-store --ignore templates/*.json --ignore config/settings_data.json",
+    "theme:pull": "shopify theme pull --store weblovo-store"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
