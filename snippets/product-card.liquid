@@ -16,7 +16,7 @@
 <a href="{{product.url}}" class="{{pre}}__card">
   <div class="{{pre}}__product">
     <div class="{{pre}}__image-wrapper">
-      {{product.featured_image | image_url: width: 336 | image_tag: widths: '200, 336'}}
+      {{product.featured_image | image_url: width: 336, format: 'webp' | image_tag: widths: '200, 336', loading: 'lazy', decoding: 'async', fetchpriority: 'low' }}
       {% if product.compare_at_price_max > product.price %}
         <div class="{{pre}}__chips">
           <span class="{{pre}}__chip {{pre}}__chip--sale">{{product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}% zniżki</span>
