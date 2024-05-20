@@ -10,13 +10,13 @@
 {% assign filtered_product_ids = "" %}
 
 {% for collection in product.collections %}
-  {% for product in collection.products %}
-    {% for tag in product.tags %}
-      {% if filter_tag contains tag %}
+  {% for product_item in collection.products %}
+    {% for tag in product_item.tags %}
+      {% if filter_tag contains tag and product_item.id != product.id %}
         {% if filtered_product_ids == blank %}
-          {% assign filtered_product_ids = filtered_product_ids | append: product.id %}
+          {% assign filtered_product_ids = filtered_product_ids | append: product_item.id %}
         {% else %}
-          {% assign filtered_product_ids = filtered_product_ids | append: "," | append: product.id %}
+          {% assign filtered_product_ids = filtered_product_ids | append: "," | append: product_item.id %}
         {% endif %}
       {% endif %}
     {% endfor %}
